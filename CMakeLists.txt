@@ -39,4 +39,8 @@ set_target_properties(Lantern
   DEFINE_SYMBOL "LANTERN_EXPORTS"
   )
 
-target_link_libraries(Lantern PUBLIC lib_detours)
+add_library(Detours ALIAS lib_detours)
+
+target_link_libraries(Lantern PUBLIC Detours)
+
+target_include_directories(Lantern PUBLIC ${SRC_FILES})

@@ -37,10 +37,36 @@ include_directories(Lantern PUBLIC ${SRC_FILES})
 set_target_properties(Lantern
   PROPERTIES
   DEFINE_SYMBOL "LANTERN_EXPORTS"
-  )
+)
 
 add_library(Detours ALIAS lib_detours)
 
 target_link_libraries(Lantern PUBLIC Detours)
 
-target_include_directories(Lantern PUBLIC ${SRC_FILES})
+
+
+set(STATIC_SRC_FILES
+	resource.h 
+	Resource.rc
+
+	lantern/framework.h 
+	lantern/LanternMod.h 
+	
+	lantern/Util/Event.cpp 
+	lantern/Util/Event.h 
+	lantern/Util/HookHelper.h 
+	lantern/Util/Logger.cpp 
+	lantern/Util/Logger.h 
+)
+
+
+add_library(Lantern-Lib ${STATIC_SRC_FILES})
+
+include_directories(Lantern-Lib PUBLIC ${STATIC_SRC_FILES})
+
+set_target_properties(Lantern-Lib
+  PROPERTIES
+  DEFINE_SYMBOL "LANTERN_EXPORTS"
+)
+
+target_link_libraries(Lantern-Lib PUBLIC Detours)
